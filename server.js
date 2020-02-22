@@ -16,15 +16,21 @@ app.use(express.json());
 
 // Initialize MongoDB URI and connect to database
 const MONGODB_URI = process.env.MONGODB_URI;
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true }).then(() => {
-    console.log('Connecting to MongoDB...');
-}, err => {
+mongoose.connect(
+    MONGODB_URI,
+    { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
+).catch(err => {
     console.log(err);
 });
 mongoose.connection.once('open', () => {
-    console.log('Connected to MongoDB successfully');
+    console.log('>>> Connected to MongoDB successfully');
 });
 
+// Initialize API routes
+
+// Use API routes
+
+// Start up server
 app.listen(PORT, () => {
-    console.log(`🌎 ==> Server now on port ${PORT}!`);
+    console.log(`>>> Server now on port ${PORT}`);
 });
