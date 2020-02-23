@@ -1,14 +1,25 @@
 const express = require('express');
 const router = express.Router();
 
+// Import Exercise model
+const Exercise = require('../models/exercise.model');
+
 router.route('/').get((req, res, next) => {
-    res.status(200).json({
-        message: 'Get /exercises route'
+    Exercise.find().then(exercises => {
+        res.status(200).json({
+            exercises: exercises
+        });
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({
+            message: 'Error occurred',
+            error: err
+        });
     });
-}).post((req, res, next) => {
-    res.status(201).json({
-        message: 'POST /exercises route'
-    });
+});
+
+router.route('/add', (req, res, next) => {
+
 });
 
 module.exports = router;
