@@ -22,9 +22,9 @@ router.route('/').get((req, res, next) => {
 
 router.route('/add').post((req, res, next) => {
     const userName = req.body.username;
-    const newUser = new User(userName);
+    const newUser = new User({ username: userName });
 
-    newUser.save.then(() => {
+    newUser.save().then(() => {
         res.status(201).json({
             message: 'Successfully created new user'
         });
